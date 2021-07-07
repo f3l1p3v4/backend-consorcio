@@ -1,7 +1,7 @@
 {
-  "name": "node-http-server",
+  "name": "api-consorcio",
   "version": "1.0.0",
-  "description": "Node.js example server starter project",
+  "description": "",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
