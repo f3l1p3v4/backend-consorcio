@@ -12,7 +12,7 @@ const EventSchema = new mongoose.Schema(
 );
 
 EventSchema.virtual("doc_url").get(function () {
-  return `http://localhost:3333/files/${this.doc}`;
+  return `https://backendconsorcio.herokuapp.com/files/${this.doc}`;
 });
 
 module.exports = mongoose.model("Event", EventSchema);
