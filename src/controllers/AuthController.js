@@ -1,38 +1,23 @@
-"use strict";
-
 const User = require("../models/User");
+require("dotenv-safe").config();
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   async authentication(req, res) {
     try {
-      const bus = await User.create(req.body);
-
-      console.log(bus.bus);
-
-      return res.send({
-        bus
-      });
+      const users = await User.find();
+      if (req.body.user === users.name && req.body.password) {
+        //auth ok
+        const id = users._id; //esse id vem do banco de dados
+        const token = jwt.sign({ id }, process.env.SECRET, {
+          expiresIn: 300 // expires in 5min
+        });
+        return res.json({ auth: true, token: token, type: users.type });
+      } else {
+        res.status(500).json({ message: "Login inválido!" });
+      }
     } catch (error) {
-      res.status(500).send(`Erro ao salvar onibûs: ${error}`);
+      res.status(500).send(`Erro ao salvar usuário: ${error}`);
     }
   }
-
-  /* if (req.body.user === "Felipe" && req.body.password === "123") {
-      //auth ok
-      const id = 1; //esse id viria do banco de dados
-      const token = jwt.sign({ id }, process.env.SECRET, {
-        expiresIn: 300 // expires in 5min
-      });
-      return res.json({ auth: true, token: token, type: "admin" });
-    } else if (req.body.user === "motorista" && req.body.password === "123") {
-      const id = 1; //esse id viria do banco de dados
-      const token = jwt.sign({ id }, process.env.SECRET, {
-        expiresIn: 300 // expires in 5min
-      });
-  
-      return res.json({ auth: true, token: token, type: "motorista" });
-    } else {
-      res.status(500).json({ message: "Login inválido!" + req.body.user });
-    }
-  });*/
 };
