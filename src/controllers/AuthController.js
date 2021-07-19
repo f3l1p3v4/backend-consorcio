@@ -6,7 +6,10 @@ module.exports = {
   async authentication(req, res) {
     try {
       const users = await User.find();
-      if (req.body.user === users.name && req.body.password) {
+      if (
+        req.body.user === users.name &&
+        req.body.password === users.password
+      ) {
         //auth ok
         const id = users._id; //esse id vem do banco de dados
         const token = jwt.sign({ id }, process.env.SECRET, {
