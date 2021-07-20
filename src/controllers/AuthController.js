@@ -17,7 +17,7 @@ module.exports = {
           const token = jwt.sign({ id }, process.env.SECRET, {
             expiresIn: 300 // expires in 5min
           });
-          return res.json({ auth: true, token: token, type: users.type });
+          return res.json({ auth: true, token: token, type: users[i].type });
         } else {
           res.status(500).json({ message: "Login inválido!" });
         }
