@@ -13,10 +13,10 @@ module.exports = {
   },
 
   async store(req, res) {
-    const doc = req.file;
+    const { filename } = req.file;
 
     const event = await Event.create({
-      doc: doc
+      thumbnail: filename
     });
 
     return res.json(event);

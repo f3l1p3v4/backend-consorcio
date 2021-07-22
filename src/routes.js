@@ -22,6 +22,6 @@ routes.post("/user", UserController.addUser);
 
 //Rote Event
 routes.get("/event", EventController.index);
-routes.post("/event", upload.single("doc"), EventController.store);
+routes.post("/event", upload.single("thumbnail"), EventController.store);
 
 module.exports = routes;
