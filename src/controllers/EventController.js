@@ -13,7 +13,6 @@ module.exports = {
   },
 
   async store(req, res) {
-    console.log("teste");
     const doc = req.file;
 
     const event = await Event.create({

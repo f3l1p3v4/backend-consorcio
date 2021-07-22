@@ -14,10 +14,10 @@ routes.get("/", function (req, res) {
 });
 
 //Rote Auth
-routes.post("/users/sign_in", AuthController.authentication);
+routes.post("/user/sign_in", AuthController.authentication);
 
 //Rote Users
-routes.get("/all", UserController.search);
+routes.get("/user", UserController.search);
 routes.post("/user", UserController.addUser);
 
 //Rote Event

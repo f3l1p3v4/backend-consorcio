@@ -11,7 +11,7 @@ const EventSchema = new mongoose.Schema(
   }
 );
 
-EventSchema.virtual("doc_url").get(function () {
+EventSchema.virtuals("doc_url").get(function () {
   return `https://backendconsorcio.herokuapp.com/files/${this.doc}`;
 });
 
