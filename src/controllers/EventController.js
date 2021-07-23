@@ -3,7 +3,11 @@ const XLSX = require("xlsx");
 
 module.exports = {
   async index(req, res) {
-    const workbook = XLSX.readFile("uploads/telemetryData-1626981165739.xlsx");
+    const files = await Event.find();
+
+    let lastFile = files.slice(-1);
+
+    const workbook = XLSX.readFile(`uploads/${lastFile}`);
     const sheet_name_list = workbook.SheetNames;
     const xlData = XLSX.utils.sheet_to_json(
       workbook.Sheets[sheet_name_list[0]]
