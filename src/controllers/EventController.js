@@ -7,7 +7,7 @@ module.exports = {
 
     let lastFile = files.slice(-1);
 
-    const workbook = XLSX.readFile(`uploads/${lastFile}`);
+    const workbook = XLSX.readFile(`uploads/${lastFile[0].thumbnail}`);
     const sheet_name_list = workbook.SheetNames;
     const xlData = XLSX.utils.sheet_to_json(
       workbook.Sheets[sheet_name_list[0]]
