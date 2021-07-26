@@ -23,6 +23,6 @@ module.exports = {
       thumbnail: filename
     });
 
-    return res.json(event);
+    return res.json(req.file);
   }
 };
