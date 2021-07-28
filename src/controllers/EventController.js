@@ -7,7 +7,9 @@ module.exports = {
 
     let lastFile = files.slice(-1);
 
-    const workbook = XLSX.readFile('app/uploads/Telemetria-1627264952634.xlsx');
+    console.log(lastFile);
+
+    const workbook = XLSX.readFile(`files/${lastFile[0].thumbnail}`);
     const sheet_name_list = workbook.SheetNames;
     const xlData = XLSX.utils.sheet_to_json(
       workbook.Sheets[sheet_name_list[0]]
@@ -23,6 +25,6 @@ module.exports = {
       thumbnail: filename
     });
 
-    return res.json(req.file);
+    return res.json(event);
   }
 };
