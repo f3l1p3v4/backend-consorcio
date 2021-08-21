@@ -9,7 +9,7 @@ module.exports = {
 
     console.log(lastFile);
 
-    const workbook = XLSX.readFile(`files/${lastFile[0].thumbnail}`);
+    const workbook = XLSX.readFile(`uploads/${lastFile[0].file}`);
     const sheet_name_list = workbook.SheetNames;
     const xlData = XLSX.utils.sheet_to_json(
       workbook.Sheets[sheet_name_list[0]]
@@ -22,7 +22,7 @@ module.exports = {
     const { filename } = req.file;
 
     const event = await Event.create({
-      thumbnail: filename
+      file: filename
     });
 
     return res.json(event);

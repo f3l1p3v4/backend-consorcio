@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const EventSchema = new mongoose.Schema(
   {
-    thumbnail: String
+    file: String,
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
   },
   {
     toJSON: {
@@ -11,8 +15,8 @@ const EventSchema = new mongoose.Schema(
   }
 );
 
-EventSchema.virtual("thumbnail_url").get(function () {
-  return `https://backendconsorcio.herokuapp.com/files/${this.thumbnail}`;
+EventSchema.virtual("file_url").get(function () {
+  return `https://backendconsorcio.herokuapp.com/files/${this.file}`;
 });
 
 module.exports = mongoose.model("Event", EventSchema);
