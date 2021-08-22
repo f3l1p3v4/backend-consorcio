@@ -22,13 +22,17 @@ module.exports = {
       workbook.Sheets[sheet_name_list[0]]
     );
 
-    for (let i = 0; i < xlData.length; i++) {
+    /* for (let i = 0; i < xlData.length; i++) {
       await Event.create({
         driver: xlData[i].__EMPTY_1,
         average: xlData[i].__EMPTY_3
       });
-    }
+    }*/
 
-    return res.json(File);
+    const eventBD = await Event.create({
+      events: xlData
+    });
+
+    return res.json(eventBD);
   }
 };
