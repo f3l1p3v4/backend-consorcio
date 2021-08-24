@@ -31,11 +31,25 @@ module.exports = {
 
     console.log(xlDataString.substr(position));
 
-    if (xlDataString.indexOf("03/08/22021")) {
-      console.log("True");
-    } else {
-      console.log("False");
-    }
+    var dataAtual = new Date();
+    var dia = dataAtual.getDate();
+    var mes = dataAtual.getMonth() + 1;
+    var ano = dataAtual.getFullYear();
+    var horas = dataAtual.getHours();
+    var minutos = dataAtual.getMinutes();
+    console.log(
+      "Hoje é dia " +
+        dia +
+        "/" +
+        mes +
+        " de " +
+        ano +
+        ". Agora são " +
+        horas +
+        ":" +
+        minutos +
+        "h."
+    );
 
     /*for (let i = 0; i < xlData.length; i++) {
       const event = await Event.create({
