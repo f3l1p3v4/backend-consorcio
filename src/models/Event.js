@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const EventSchema = new mongoose.Schema({
-  events: Array,
+  driver: String,
+  average: String,
   createdAt: {
     type: Date,
     default: Date.now
