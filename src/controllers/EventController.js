@@ -6,9 +6,9 @@ module.exports = {
   async index(req, res) {
     const { driver } = req.headers;
 
-    //const events = await Event.find({ driver: { $all: driver } });
-    //const events = await Event.findOne({ driver: driver });
-    const events = await Event.findOne({ driver: /.*1365.*/i });
+    let re = new RegExp(`${driver}[0-9]?`, "i");
+
+    const events = await Event.find({ driver: { $regex: re } });
 
     res.json(events);
   },
@@ -56,6 +56,7 @@ module.exports = {
 
       for (let i = 0; i < xlData.length; i++) {
         const event = await Event.create({
+          car: xlData[i].__EMPTY,
           driver: xlData[i].__EMPTY_1,
           average: xlData[i].__EMPTY_3
         });
