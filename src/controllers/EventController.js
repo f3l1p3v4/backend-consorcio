@@ -4,7 +4,11 @@ const XLSX = require("xlsx");
 
 module.exports = {
   async index(req, res) {
-    const events = await Event.find();
+    const { driver } = req.headers;
+
+    //const events = await Event.find({ driver: { $all: driver } });
+    //const events = await Event.findOne({ driver: driver });
+    const events = await Event.findOne({ driver: /.*1365.*/i });
 
     res.json(events);
   },
