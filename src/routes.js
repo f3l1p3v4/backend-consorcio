@@ -16,6 +16,11 @@ routes.get("/", function (req, res) {
 //Rote Auth
 routes.post("/user/sign_in", AuthController.authentication);
 
+//Rote Logout
+routes.post("/logout", function (req, res) {
+  res.json({ auth: false, token: null });
+});
+
 //Rote Users
 routes.get("/user", UserController.search);
 routes.post("/user", UserController.addUser);
