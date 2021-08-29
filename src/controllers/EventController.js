@@ -71,7 +71,7 @@ module.exports = {
       }
       return res.status(200).json(events);
     } else {
-      res.status(500).json({ message: "Arquivo com data antiga!" });
+      res.status(400).json({ message: "Arquivo com data antiga!" });
     }
 
     /*
