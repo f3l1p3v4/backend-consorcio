@@ -13,6 +13,12 @@ module.exports = {
     res.json(events);
   },
 
+  async allEvents(req, res) {
+    const events = await Event.find();
+
+    return res.json(events);
+  },
+
   async store(req, res) {
     const { filename } = req.file;
 
