@@ -9,9 +9,9 @@ module.exports = function date() {
   let dateCurrent = "";
 
   if (monthString.length === 1) {
-    dateCurrent = `${day}/0${month}/${year}     `;
+    dateCurrent = `${day}/0${month}/${year}`;
   } else {
-    dateCurrent = `${day}/${month}/${year}     `;
+    dateCurrent = `${day}/${month}/${year}`;
   }
 
   return dateCurrent;
