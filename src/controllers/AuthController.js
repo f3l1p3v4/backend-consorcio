@@ -17,7 +17,12 @@ module.exports = {
       });
       return res
         .status(200)
-        .json({ auth: true, token: token, type: users.type });
+        .json({
+          auth: true,
+          token: token,
+          type: users.type,
+          plate: users.plate
+        });
     } else {
       res.status(500).json({ message: "Login inválido!" });
     }
