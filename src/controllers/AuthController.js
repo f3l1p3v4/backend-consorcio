@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   async authentication(req, res) {
     const users = await User.findOne({
-      name: req.body.user,
+      plate: req.body.user,
       password: req.body.password
     });
 

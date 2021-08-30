@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
     default: "motorista"
   },
   createdAt: {
-    type: Date,
+    type: String,
     default: dataCurrent
   }
 });
