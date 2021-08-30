@@ -4,7 +4,10 @@ const UserSchema = new mongoose.Schema({
   name: String,
   plate: String,
   password: String,
-  type: String
+  type: {
+    type: String,
+    default: "motorista"
+  }
 });
 
 module.exports = mongoose.model("User", UserSchema);
