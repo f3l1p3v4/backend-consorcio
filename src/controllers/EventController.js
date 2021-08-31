@@ -13,6 +13,16 @@ module.exports = {
     res.json(events);
   },
 
+  async indexCompany(req, res) {
+    const { driver } = req.headers;
+
+    let re = new RegExp(`${driver}[0-9]?`, "i");
+
+    const events = await Event.find({ company: { $regex: re } });
+
+    res.json(events);
+  },
+
   async allEvents(req, res) {
     const events = await Event.find();
 
