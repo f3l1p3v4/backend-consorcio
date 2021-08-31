@@ -15,14 +15,13 @@ module.exports = {
       const token = jwt.sign({ id }, process.env.SECRET, {
         expiresIn: 300 // expires in 5min
       });
-      return res
-        .status(200)
-        .json({
-          auth: true,
-          token: token,
-          type: users.type,
-          plate: users.plate
-        });
+      return res.status(200).json({
+        auth: true,
+        token: token,
+        type: users.type,
+        plate: users.plate,
+        company: users.company
+      });
     } else {
       res.status(500).json({ message: "Login inválido!" });
     }
