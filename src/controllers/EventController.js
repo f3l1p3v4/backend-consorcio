@@ -92,10 +92,9 @@ module.exports = {
               average: xlData[i].__EMPTY_3,
               company: "JTU"
             });
-
             events.push(event);
-            return res.status(200).json(events);
           }
+          return res.status(200).json(events);
         } else {
           return res
             .status(400)
