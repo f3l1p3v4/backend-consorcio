@@ -20,13 +20,22 @@ module.exports = {
   },
 
   async addUser(req, res) {
-    console.log("ola addUser");
     try {
-      const user = await User.create(req.body);
+      let re = new RegExp(`${req.body.plate}[0-9]?`, "i");
 
-      return res.send({
-        user
-      });
+      const userBD = await User.find({ company: { $regex: re } });
+
+      if (userBD === []) {
+        const user = await User.create(req.body);
+
+        return res.send({
+          user
+        });
+      } else {
+        res
+          .status(400)
+          .send(`Este usuário já está cadastrado no banco de dados!`);
+      }
     } catch (error) {
       res.status(500).send(`Erro ao salvar usuário: ${error}`);
     }
