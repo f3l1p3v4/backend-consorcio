@@ -23,6 +23,7 @@ routes.post("/logout", function (req, res) {
 
 //Rote Users
 routes.get("/user", UserController.search);
+routes.get("/user/driver", UserController.index);
 routes.post("/user", UserController.addUser);
 
 //Rote Event
