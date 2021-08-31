@@ -8,13 +8,13 @@ module.exports = {
 
     return res.json(users);
   },
-  
+
   async index(req, res) {
     const { driver } = req.headers;
 
     let re = new RegExp(`${driver}[0-9]?`, "i");
 
-    const user = await User.find({ driver: { $regex: re } });
+    const user = await User.find({ company: { $regex: re } });
 
     res.json(user);
   },
