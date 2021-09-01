@@ -4,7 +4,7 @@ const XLSX = require("xlsx");
 
 module.exports = {
   async index(req, res) {
-    const { driver, date } = req.headers;
+    const { driver, date } = req.params;
 
     let re = new RegExp(`${driver}[0-9]?`, "i");
 
