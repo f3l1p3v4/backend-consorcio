@@ -30,6 +30,7 @@ routes.post("/user", UserController.addUser);
 routes.get("/event", EventController.allEvents);
 routes.get("/event/driver", EventController.index);
 routes.get("/event/company", EventController.indexCompany);
+routes.get("/event/date", EventController.indexDateCompany);
 routes.post("/event", upload.single("file"), EventController.store);
 
 module.exports = routes;

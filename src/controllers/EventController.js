@@ -18,7 +18,21 @@ module.exports = {
 
     let re = new RegExp(`${driver}[0-9]?`, "i");
 
-    const events = await Event.find({ company: { $regex: re } });
+    const events = await Event.find({ driver: { $regex: re } });
+
+    res.json(events);
+  },
+
+  async indexDateCompany(req, res) {
+    const { driver, date } = req.headers;
+
+    let re = new RegExp(`${driver}[0-9]?`, "i");
+    let reDate = new RegExp(`${date}[0-9]?`, "i");
+
+    const events = await Event.find({
+      company: { $regex: re },
+      createdAt: { $regex: reDate }
+    });
 
     res.json(events);
   },
