@@ -23,7 +23,7 @@ module.exports = {
     try {
       let re = new RegExp(`${req.body.plate}[0-9]?`, "i");
 
-      const userBD = await User.find({ company: { $regex: re } });
+      const userBD = await User.find({ plate: { $regex: re } });
 
       if (userBD === []) {
         const user = await User.create(req.body);
