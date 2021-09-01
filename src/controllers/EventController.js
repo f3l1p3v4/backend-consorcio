@@ -4,7 +4,9 @@ const XLSX = require("xlsx");
 
 module.exports = {
   async index(req, res) {
-    const { driver, date } = req.params;
+    const { driver, date } = req.query;
+
+    console.log(driver, date);
 
     let re = new RegExp(`${driver}[0-9]?`, "i");
 
@@ -13,7 +15,6 @@ module.exports = {
       createdAt: date
     });
 
-    //oloa
     res.json(events);
   },
 
