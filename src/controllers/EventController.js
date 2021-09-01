@@ -6,8 +6,6 @@ module.exports = {
   async index(req, res) {
     const { driver, date } = req.query;
 
-    console.log(driver, date);
-
     let re = new RegExp(`${driver}[0-9]?`, "i");
 
     const events = await Event.find({
@@ -73,7 +71,9 @@ module.exports = {
 
     const xlDataString = Object.keys(xlDataObj)[0];
 
-    const DateXlsx = xlDataString.substring(49, 67);
+    const DateXlsx = xlDataString.substring(48, 66);
+
+    console.log("_" + DateXlsx + "_");
 
     if (DateXlsx === "Jaguar Transportes") {
       const xlDataString = Object.keys(xlDataObj)[0];
@@ -84,7 +84,7 @@ module.exports = {
 
       console.log("Data do arquivo xlsx " + xlDataString.substr(position));
 
-      let date = new Date();
+      /*let date = new Date();
       let day = date.getDate();
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
@@ -97,10 +97,17 @@ module.exports = {
         dateCurrent = `${day}/0${month}/${year}     `;
       } else {
         dateCurrent = `${day}/${month}/${year}     `;
-      }
+      }*/
 
-      if (dateCurrent === DateXlsx) {
-        let re = new RegExp(`${dateCurrent}[0-9]?`, "i");
+      var ontem = new Date().setHours(-1);
+      ontem = new Date(ontem);
+
+      var dataformatada = ontem.toLocaleDateString("pt-BR");
+
+      let dataFormatString = `${dataformatada}     `;
+
+      if (dataFormatString === DateXlsx) {
+        let re = new RegExp(`${dataformatada}[0-9]?`, "i");
 
         const eventDateCorrect = await Event.find({
           createdAt: { $regex: re }
@@ -201,4 +208,15 @@ module.exports = {
         minutos +
         "h."
     );
+
+    --------------------------Formatando datas--------------------------
+    var hoje = new Date();
+    var ontem = new Date().setHours(-1);
+    ontem = new Date(ontem) // o comando setHours devolve a data em milisegundos
+
+    var dataformatada = ontem.toLocaleDateString('pt-BR'); // '30/09/2018'
+    dataformatada = dataformatada.split('/').reverse().join('') // '20180930'
+    var filename = 'LDREL_'+dataformatada+'.txt'
+
+    console.log(filename); // LDREL_20180930.txt
     */
