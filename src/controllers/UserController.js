@@ -16,28 +16,30 @@ module.exports = {
 
     const user = await User.find({ company: { $regex: re } });
 
-    res.json(user);
+    return res.json(user);
   },
 
   async addUser(req, res) {
     try {
-      let re = new RegExp(`${req.body.plate}[0-9]?`, "i");
+      const user = await User.findOne({
+        plate: req.body.plate
+      });
 
-      const userBD = await User.find({ plate: { $regex: re } });
+      console.log(user);
 
-      if (userBD === []) {
+      if (user === null) {
         const user = await User.create(req.body);
 
         return res.send({
           user
         });
       } else {
-        res
+        return res
           .status(400)
           .send(`Este usuário já está cadastrado no banco de dados!`);
       }
     } catch (error) {
-      res.status(500).send(`Erro ao salvar usuário: ${error}`);
+      return res.status(500).send(`Erro ao salvar usuário: ${error}`);
     }
   }
 };

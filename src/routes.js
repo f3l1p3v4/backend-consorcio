@@ -31,6 +31,6 @@ routes.get("/event", EventController.allEvents);
 routes.get("/event/driver", EventController.index);
 routes.get("/event/company", EventController.indexCompany);
 routes.get("/event/date", EventController.indexDateCompany);
-routes.post("/event", upload.single("file"), EventController.store);
+routes.post("/event", upload.single("file"), EventController.saveFileXlsx);
 
 module.exports = routes;

@@ -58,76 +58,58 @@ module.exports = {
     return res.json(events);
   },
 
-  async store(req, res) {
+  async saveFileXlsx(req, res) {
     const { filename } = req.file;
 
     const workbook = XLSX.readFile(`uploads/${filename}`);
     const sheet_name_list = workbook.SheetNames;
-    const xlData = XLSX.utils.sheet_to_json(
+    const jsonData = XLSX.utils.sheet_to_json(
       workbook.Sheets[sheet_name_list[0]]
     );
 
-    const xlDataObj = xlData[0];
+    const xlsxCompany = jsonData[1].__EMPTY_2;
 
-    const xlDataString = Object.keys(xlDataObj)[0];
+    console.log("_" + xlsxCompany + "_");
 
-    const DateXlsx = xlDataString.substring(48, 66);
+    if (xlsxCompany === "Jaguar Transportes") {
+      const titleString = jsonData[0];
 
-    console.log("_" + DateXlsx + "_");
+      const titleObj = Object.keys(titleString)[0];
 
-    if (DateXlsx === "Jaguar Transportes") {
-      const xlDataString = Object.keys(xlDataObj)[0];
+      const positionFirst = titleObj.length - 15;
+      const positionLast = titleObj.length - 5;
 
-      const position = xlDataString.length - 15;
+      const DateFile = titleObj.substring(positionFirst, positionLast);
 
-      const DateXlsx = xlDataString.substr(position);
+      console.log("_" + DateFile + "_");
 
-      console.log("Data do arquivo xlsx " + xlDataString.substr(position));
+      let yesterday = new Date().setHours(-1);
+      yesterday = new Date(yesterday);
 
-      /*let date = new Date();
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
+      const dateFormated = yesterday.toLocaleDateString("pt-BR");
 
-      let monthString = JSON.stringify(month);
+      if (dateFormated === DateFile) {
+        let re = new RegExp(`${dateFormated}[0-9]?`, "i");
 
-      let dateCurrent = "";
-
-      if (monthString.length === 1) {
-        dateCurrent = `${day}/0${month}/${year}     `;
-      } else {
-        dateCurrent = `${day}/${month}/${year}     `;
-      }*/
-
-      var ontem = new Date().setHours(-1);
-      ontem = new Date(ontem);
-
-      var dataformatada = ontem.toLocaleDateString("pt-BR");
-
-      let dataFormatString = `${dataformatada}     `;
-
-      if (dataFormatString === DateXlsx) {
-        let re = new RegExp(`${dataformatada}[0-9]?`, "i");
-
-        const eventDateCorrect = await Event.find({
+        const dateCorrect = await Event.find({
           createdAt: { $regex: re }
         });
 
-        console.log("retorno do banco" + eventDateCorrect);
+        console.log("Retorno do DB" + dateCorrect);
 
         //Para esta condição funcionar corretamento o banco não pode estar vazio
-        if (eventDateCorrect === []) {
+        if (dateCorrect === []) {
           const events = [];
 
           await File.create({
             file: filename
           });
 
-          for (let i = 0; i < xlData.length; i++) {
+          for (let i = 0; i < jsonData.length; i++) {
             const event = await Event.create({
-              car: xlData[i].__EMPTY,
-              driver: xlData[i].__EMPTY_1,
-              average: xlData[i].__EMPTY_3,
+              car: jsonData[i].__EMPTY,
+              driver: jsonData[i].__EMPTY_1,
+              average: jsonData[i].__EMPTY_3,
               company: "JTU"
             });
             events.push(event);
@@ -146,77 +128,36 @@ module.exports = {
     }
   }
 };
-
-/*const xlDataString = Object.keys(xlDataObj)[0];
-
-    const position = xlDataString.length - 15;
-
-    const DateXlsx = xlDataString.substr(position);
-
-    console.log("Data do arquivo xlsx " + xlDataString.substr(position));
-
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    let monthString = JSON.stringify(month);
-
-    let dateCurrent = "";
-
-    if (monthString.length === 1) {
-      dateCurrent = `${day}/0${month}/${year}     `;
-    } else {
-      dateCurrent = `${day}/${month}/${year}     `;
-    }
-
-    if (dateCurrent === DateXlsx) {
-      const events = [];
-
-      for (let i = 0; i < xlData.length; i++) {
-        const event = await Event.create({
-          car: xlData[i].__EMPTY,
-          driver: xlData[i].__EMPTY_1,
-          average: xlData[i].__EMPTY_3
-        });
-
-        events.push(event);
-      }
-      return res.status(200).json(events);
-    } else {
-      res.status(400).json({ message: "Arquivo com data antiga!" });
-    }*/
-
 /*
-    --------------------------Trabalhando com datas--------------------------
-    var dataAtual = new Date();
-    var dia = dataAtual.getDate();
-    var mes = dataAtual.getMonth() + 1;
-    var ano = dataAtual.getFullYear();
-    var horas = dataAtual.getHours();
-    var minutos = dataAtual.getMinutes();
-    console.log(
-      "Hoje é dia " +
-        dia +
-        "/" +
-        mes +
-        " de " +
-        ano +
-        ". Agora são " +
-        horas +
-        ":" +
-        minutos +
-        "h."
-    );
+  --------------------------Trabalhando com datas--------------------------
+  var dataAtual = new Date();
+  var dia = dataAtual.getDate();
+  var mes = dataAtual.getMonth() + 1;
+  var ano = dataAtual.getFullYear();
+  var horas = dataAtual.getHours();
+  var minutos = dataAtual.getMinutes();
+  console.log(
+    "Hoje é dia " +
+      dia +
+      "/" +
+      mes +
+      " de " +
+      ano +
+      ". Agora são " +
+      horas +
+      ":" +
+      minutos +
+      "h."
+  );
 
-    --------------------------Formatando datas--------------------------
-    var hoje = new Date();
-    var ontem = new Date().setHours(-1);
-    ontem = new Date(ontem) // o comando setHours devolve a data em milisegundos
+  --------------------------Formatando datas--------------------------
+  var hoje = new Date();
+  var ontem = new Date().setHours(-1);
+  ontem = new Date(ontem) // o comando setHours devolve a data em milisegundos
 
-    var dataformatada = ontem.toLocaleDateString('pt-BR'); // '30/09/2018'
-    dataformatada = dataformatada.split('/').reverse().join('') // '20180930'
-    var filename = 'LDREL_'+dataformatada+'.txt'
+  var dataformatada = ontem.toLocaleDateString('pt-BR'); // '30/09/2018'
+  dataformatada = dataformatada.split('/').reverse().join('') // '20180930'
+  var filename = 'LDREL_'+dataformatada+'.txt'
 
-    console.log(filename); // LDREL_20180930.txt
-    */
+  console.log(filename); // LDREL_20180930.txt
+*/
