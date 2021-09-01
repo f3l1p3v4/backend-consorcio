@@ -4,29 +4,32 @@ const XLSX = require("xlsx");
 
 module.exports = {
   async index(req, res) {
-    const { driver } = req.headers;
+    const { driver, date } = req.headers;
 
     let re = new RegExp(`${driver}[0-9]?`, "i");
 
-    const events = await Event.find({ driver: { $regex: re } });
+    const events = await Event.find({
+      driver: { $regex: re },
+      createdAt: date
+    });
 
     res.json(events);
   },
 
   async indexCompany(req, res) {
-    const { driver } = req.headers;
+    const { company } = req.headers;
 
-    let re = new RegExp(`${driver}[0-9]?`, "i");
+    let re = new RegExp(`${company}[0-9]?`, "i");
 
-    const events = await Event.find({ driver: { $regex: re } });
+    const events = await Event.find({ company: { $regex: re } });
 
     res.json(events);
   },
 
   async indexDateCompany(req, res) {
-    const { driver, date } = req.headers;
+    const { company, date } = req.headers;
 
-    let re = new RegExp(`${driver}[0-9]?`, "i");
+    let re = new RegExp(`${company}[0-9]?`, "i");
     let reDate = new RegExp(`${date}[0-9]?`, "i");
 
     const events = await Event.find({
