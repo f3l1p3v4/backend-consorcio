@@ -19,6 +19,18 @@ module.exports = {
   },
 
   async indexCompany(req, res) {
+    const { company, date } = req.query;
+
+    const events = await Event.find({
+      company: company,
+      createdAt: date
+    });
+
+    res.json(events);
+  },
+
+  /*
+    async indexCompany(req, res) {
     const { company } = req.headers;
 
     let re = new RegExp(`${company}[0-9]?`, "i");
@@ -26,7 +38,7 @@ module.exports = {
     const events = await Event.find({ company: { $regex: re } });
 
     res.json(events);
-  },
+  },*/
 
   async indexDateCompany(req, res) {
     const { company, date } = req.headers;
