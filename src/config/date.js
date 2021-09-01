@@ -10,13 +10,13 @@ module.exports = function date() {
   let dateCurrent = "";
 
   if (dayString.length === 1 && monthString.length === 1) {
-    dateCurrent = `0${day}/0${month}/${year}`;
+    dateCurrent = `0${day}0${month}${year}`;
   } else if (dayString.length === 1) {
-    dateCurrent = `0${day}/${month}/${year}`;
+    dateCurrent = `0${day}${month}${year}`;
   } else if (monthString.length === 1) {
-    dateCurrent = `${day}/0${month}/${year}`;
+    dateCurrent = `${day}0${month}${year}`;
   } else {
-    dateCurrent = `${day}/${month}/${year}`;
+    dateCurrent = `${day}${month}${year}`;
   }
 
   return dateCurrent;
