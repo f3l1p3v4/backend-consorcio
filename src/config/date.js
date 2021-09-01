@@ -4,11 +4,16 @@ module.exports = function date() {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
 
+  let dayString = JSON.stringify(month);
   let monthString = JSON.stringify(month);
 
   let dateCurrent = "";
 
-  if (monthString.length === 1) {
+  if (dayString.length === 1 && monthString.length === 1) {
+    dateCurrent = `0${day}/0${month}/${year}`;
+  } else if (dayString.length === 1) {
+    dateCurrent = `0${day}/${month}/${year}`;
+  } else if (monthString.length === 1) {
     dateCurrent = `${day}/0${month}/${year}`;
   } else {
     dateCurrent = `${day}/${month}/${year}`;
