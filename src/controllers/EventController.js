@@ -117,7 +117,7 @@ module.exports = {
         console.log("Banco " + dateCorrect);
 
         //Para esta condição funcionar corretamento o banco não pode estar vazio
-        if (dateCorrect != null) {
+        if (dateCorrect === null) {
           const events = [];
 
           await File.create({
