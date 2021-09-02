@@ -67,7 +67,7 @@ module.exports = {
       workbook.Sheets[sheet_name_list[0]]
     );
 
-    const xlsxCompany = jsonData[1].__EMPTY_2;
+    const xlsxCompany = jsonData[3]._2;
 
     console.log("_" + xlsxCompany + "_");
 
@@ -89,16 +89,35 @@ module.exports = {
       const dateFormated = yesterday.toLocaleDateString("pt-BR");
 
       if (dateFormated === DateFile) {
-        let re = new RegExp(`${dateFormated}[0-9]?`, "i");
+        const today = new Date();
 
-        const dateCorrect = await Event.find({
-          createdAt: { $regex: re }
+        let day = today.getDate();
+        let month = today.getMonth() + 1;
+        let year = today.getFullYear();
+
+        let dayString = JSON.stringify(month);
+        let monthString = JSON.stringify(month);
+
+        let dateCurrent = "";
+
+        if (dayString.length === 1 && monthString.length === 1) {
+          dateCurrent = `0${day}0${month}${year}`;
+        } else if (dayString.length === 1) {
+          dateCurrent = `0${day}${month}${year}`;
+        } else if (monthString.length === 1) {
+          dateCurrent = `${day}0${month}${year}`;
+        } else {
+          dateCurrent = `${day}${month}${year}`;
+        }
+
+        const dateCorrect = await Event.findOne({
+          createdAt: dateCurrent
         });
 
-        console.log("Retorno do DB" + dateCorrect);
+        console.log("Banco " + dateCorrect);
 
         //Para esta condição funcionar corretamento o banco não pode estar vazio
-        if (dateCorrect === []) {
+        if (dateCorrect != null) {
           const events = [];
 
           await File.create({
@@ -106,10 +125,11 @@ module.exports = {
           });
 
           for (let i = 0; i < jsonData.length; i++) {
+            let dataObj = jsonData[i];
             const event = await Event.create({
-              car: jsonData[i].__EMPTY,
-              driver: jsonData[i].__EMPTY_1,
-              average: jsonData[i].__EMPTY_3,
+              car: Object.values(dataObj)[1],
+              driver: Object.values(dataObj)[2],
+              average: Object.values(dataObj)[4],
               company: "JTU"
             });
             events.push(event);
