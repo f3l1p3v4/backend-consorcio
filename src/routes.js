@@ -35,7 +35,7 @@ routes.get("/event/company", EventController.indexCompany);
 routes.get("/event/date", EventController.indexDateCompany);
 routes.post("/event", upload.single("file"), EventController.saveFileXlsx);
 
-//Rote Buses
+//Rote Bushes
 routes.get("/all", BusController.search);
 routes.get("/bushes", BusController.searchBushes);
 routes.post("/bushes", BusController.addBushes);
