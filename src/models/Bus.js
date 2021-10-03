@@ -3,11 +3,7 @@ const mongoose = require("mongoose");
 const BusSchema = new mongoose.Schema({
   bus: String,
   categorie: String,
-  group: [
-    {
-      item: String
-    }
-  ],
+  group: [{}],
   status: String
 });
 
