@@ -3,9 +3,9 @@ const dataCurrent = require("../config/date");
 
 const UserSchema = new mongoose.Schema({
   name: String,
-  company: String,
   plate: String,
   password: String,
+  company: String,
   type: {
     type: String,
     default: "motorista"

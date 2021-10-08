@@ -3,20 +3,20 @@
 const User = require("../models/User");
 
 module.exports = {
-  async search(req, res) {
+  async searchAll(req, res) {
     const users = await User.find();
 
     return res.json(users);
   },
 
-  async index(req, res) {
-    const { driver } = req.headers;
+  async searchCompany(req, res) {
+    const { company } = req.headers;
 
-    let re = new RegExp(`${driver}[0-9]?`, "i");
+    let re = new RegExp(`${company}[0-9]?`, "i");
 
-    const user = await User.find({ company: { $regex: re } });
+    const userCompany = await User.find({ company: { $regex: re } });
 
-    return res.json(user);
+    return res.json(userCompany);
   },
 
   async addUser(req, res) {

@@ -6,7 +6,7 @@ const { verifyJWT } = require("./controllers/AuthController");
 const AuthController = require("./controllers/AuthController");
 const UserController = require("./controllers/UserController");
 const EventController = require("./controllers/EventController");
-const BusController = require("./controllers/BusController");
+const CarController = require("./controllers/CarController");
 
 const routes = Router();
 const upload = multer(uploadConfig);
@@ -24,9 +24,9 @@ routes.post("/logout", function (req, res) {
 });
 
 //Rote Users
-routes.get("/user", verifyJWT, UserController.search);
-routes.get("/user/driver", UserController.index);
-routes.post("/user", UserController.addUser);
+routes.get("/user", verifyJWT, UserController.searchAll);
+routes.get("/user/company", verifyJWT, UserController.searchCompany);
+routes.post("/user", verifyJWT, UserController.addUser);
 
 //Rote Event
 routes.get("/event", EventController.allEvents);
@@ -35,12 +35,13 @@ routes.get("/event/company", EventController.indexCompany);
 routes.get("/event/date", EventController.indexDateCompany);
 routes.post("/event", upload.single("file"), EventController.saveFileXlsx);
 
-//Rote Bushes
-routes.get("/all", BusController.search);
-routes.get("/bushes", BusController.searchBushes);
-routes.post("/bushes", BusController.addBushes);
-routes.put("/bushes", BusController.changeStatus);
-routes.put("/bus", BusController.changeBus);
-routes.delete("/bushes/:id", BusController.deleteBus);
+//Rote Car
+routes.get("/car", CarController.searchAll);
+routes.get("/car/sector", CarController.searchSector);
+routes.get("/car/liberated", CarController.searchLiberated);
+routes.post("/car", CarController.add);
+routes.put("/car", CarController.change);
+routes.put("/car/status", CarController.changeStatus);
+routes.delete("/car/:id", CarController.delete);
 
 module.exports = routes;
