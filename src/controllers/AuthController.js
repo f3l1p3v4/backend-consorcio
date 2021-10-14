@@ -28,6 +28,9 @@ module.exports = {
   },
   async verifyJWT(req, res, next) {
     const token = req.headers["x-access-token"];
+
+    console.log("Olá Token" + token);
+
     if (!token)
       return res
         .status(401)
