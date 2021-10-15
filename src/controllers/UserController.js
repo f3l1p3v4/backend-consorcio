@@ -25,8 +25,6 @@ module.exports = {
         plate: req.body.plate
       });
 
-      console.log(user);
-
       if (user === null) {
         const user = await User.create(req.body);
 
