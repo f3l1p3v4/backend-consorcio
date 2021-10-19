@@ -26,7 +26,7 @@ routes.post("/logout", function (req, res) {
 //Rote Users
 routes.get("/user", verifyJWT, UserController.searchAll);
 routes.get("/user/company", verifyJWT, UserController.searchCompany);
-routes.post("/user", verifyJWT, UserController.addUser);
+routes.post("/user", UserController.addUser);
 
 //Rote Event
 routes.get("/event", EventController.allEvents);
