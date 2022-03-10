@@ -9,8 +9,8 @@ const CarSchema = new mongoose.Schema({
     default: "Bilhetagem"
   },
   group: [{}],
-  liberated: String,
   status: String,
+  time: String,
   createdAt: {
     type: String,
     default: dataCurrent
